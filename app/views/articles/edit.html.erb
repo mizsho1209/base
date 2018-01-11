@@ -1,0 +1,13 @@
+<div class = "form">
+<%=form_for @article , url: article_path(@article) do |f|%>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :body %>
+    <%= f.text_field :body %>
+  </p>
+  <%= f.submit %>
+<% end %>
+</div>

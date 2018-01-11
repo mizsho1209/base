@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Base</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+<body>
+  <header>
+    <p id="logo"><%= link_to "RailsCamp<span>Blog</span>", root_path %></p>
+    <nav>
+      <ul>
+              <li><%= link_to "トップ", root_path %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to"新規投稿", new_article_path(:post) %></li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+              <% else%>
+                <li><%= link_to"ユーザ登録", new_user_registration_path %></li>
+                <li><%= link_to "ログイン", new_user_session_path%></li>
+              <% end %>
+          </ul>
+    </nav>
+    <div class="clear"></div>
+</header>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <%= yield %>
+
+    <footer>
+      <%= render 'footer'  %>
+    </footer>
+  </body>
+
+
+</html>

@@ -1,0 +1,12 @@
+
+<div class = "form">
+  <form>
+    <%=form_for @article, url: articles_path(:article) do |f|%>
+      <p><%= f.label :title, "タイトル"%></p>
+      <p><%= f.text_field :title %></p>
+      <p><%= f.label :body ,"記事内容"%></p>
+      <p><%= f.text_field :body %></p>
+      <%= f.submit %>
+    <% end %>
+  </form>
+</div>
