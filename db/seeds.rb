@@ -8,3 +8,5 @@
 5.times do |i|
    Article.create(title: "title #{i}", body: "body #{i}", visited: "#{i}")
 end
+
+# User.create(id: "1",email:"mizuno@gmail.com" ,encrypted_password: "aaaaaa" )

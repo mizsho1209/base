@@ -20,9 +20,9 @@ class ArticlesController < ApplicationController
 
 
   def create
-    if  @article = Article.new(article_params)
-      @article.save
-      redirect_to articles_path
+    @article = Article.new(article_create_params)
+    if @article.save
+      redirect_to  root_path 
     else
       render 'new'
     end
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    if @article.update(article_params)
+    if @article.update(article_update_params)
         redirect_to article_path(@article)
     else
       render 'new'
@@ -45,7 +45,11 @@ class ArticlesController < ApplicationController
 
 
 private
-      def article_params
+      def article_create_params
+        params.require(:article).permit(:title, :body, :user_id)
+      end
+
+      def article_update_params
         params.require(:article).permit(:title, :body)
       end
 end

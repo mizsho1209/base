@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Base</title>
+    <title>Workspace</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -10,12 +10,14 @@
 
 <body>
   <header>
-    <p id="logo"><%= link_to "RailsCamp<span>Blog</span>", root_path %></p>
+    <p id="logo"><%= link_to root_path do %>
+       RailsCamp<span>Blog</span>
+     <% end%></p>
     <nav>
       <ul>
               <li><%= link_to "トップ", root_path %></li>
               <% if user_signed_in? %>
-                <li><%= link_to"新規投稿", new_article_path(:post) %></li>
+                <li><%= link_to"新規投稿", new_article_path(:article) %></li>
                 <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
               <% else%>
                 <li><%= link_to"ユーザ登録", new_user_registration_path %></li>
@@ -32,7 +34,7 @@
     <%= yield %>
 
     <footer>
-      <%= render 'footer'  %>
+      <%= render 'articles/footer'  %>
     </footer>
   </body>
 
