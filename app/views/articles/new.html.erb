@@ -1,6 +1,6 @@
 <div id="article_wrap">
 
-  <form  id="new_article">
+
     <%=form_for @article, url: articles_path do |f| %>
       <p><%= f.label :title, "タイトル"%></p>
       <p><%= f.text_field :title %></p>
@@ -11,5 +11,5 @@
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.submit %>
     <% end %>
-  </form>
+
 </div>
