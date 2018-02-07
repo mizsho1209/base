@@ -56,7 +56,8 @@ private
       end
 
       def get_ranking
-        ids = REDIS.zrevrangebyscore "ranking", "+inf", 0, limit: [0, -1]
-        @ranking = Article.where(id: ids)
+        ids = REDIS.zrevrangebyscore "ranking", "+inf", 0, limit: [0, 3]
+        @ranking = Article.where(id: ids).sort_by{ |article| ids.index(article.id.to_s) }
+
       end
 end
