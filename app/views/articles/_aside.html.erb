@@ -1,10 +1,10 @@
     <div id="sidebar">
       <h2>★PV数ランキング</h2>
         <ul>
-          <% Article.order("visited DESC").all.each do |article|  %>
+          <% @ranking.each do |ranking|  %>
           <li>
-             <%=link_to  article.title, article_path(article)%>
-                          (<%= article.visited%>PV)
+             <%=link_to  ranking.title, article_path(ranking)%>
+                          (<%=  REDIS.zscore('ranking',"#{ranking.id}").floor%>PV)
           </li>
           <% end%>
         </ul>
