@@ -8,8 +8,8 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    get_ranking
     REDIS.zincrby "ranking", 1, "#{@article.id}"
+    get_ranking
   end
 
   def new
@@ -42,6 +42,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
+    REDIS.zrem "ranking",  "#{@article.id}"
     redirect_to articles_path
   end
 
@@ -58,6 +59,5 @@ private
       def get_ranking
         ids = REDIS.zrevrangebyscore "ranking", "+inf", 0, limit: [0, 3]
         @ranking = Article.where(id: ids).sort_by{ |article| ids.index(article.id.to_s) }
-
       end
 end
