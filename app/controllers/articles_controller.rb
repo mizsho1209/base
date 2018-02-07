@@ -24,6 +24,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_create_params)
     if @article.save
+      REDIS.zadd "ranking", 0, "#{@article.id}"
       redirect_to  root_path
     else
       render 'new'
