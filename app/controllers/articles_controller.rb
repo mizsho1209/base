@@ -1,13 +1,15 @@
 class ArticlesController < ApplicationController
 
   def index
-    @articles = Article.all.order(created_at: 'desc')
+    @articles = Article.all
+    # .order(created_at: 'desc')
+    get_ranking
   end
 
   def show
     @article = Article.find(params[:id])
-    @article.increment(:visited)
-    @article.save
+    get_ranking
+    REDIS.zincrby "ranking", 1, "#{@article.id}"
   end
 
   def new
@@ -22,7 +24,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_create_params)
     if @article.save
-      redirect_to  root_path 
+      redirect_to  root_path
     else
       render 'new'
     end
@@ -51,5 +53,10 @@ private
 
       def article_update_params
         params.require(:article).permit(:title, :body)
+      end
+
+      def get_ranking
+        ids = REDIS.zrevrangebyscore "ranking", "+inf", 0, limit: [0, -1]
+        @ranking = Article.where(id: ids)
       end
 end
