@@ -3,7 +3,7 @@
     <div>
         <p>
           <%= @article.created_at.strftime("%Y/%m/%d ") %>
-          /書いた人:<%= @article.user %>
+          /書いた人:<%= @article.user.email  %>
         </p>
           <h1><%= @article.title %></h1>
     </div>
