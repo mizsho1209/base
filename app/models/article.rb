@@ -1,7 +1,5 @@
 class Article < ApplicationRecord
-<<<<<<< HEAD
- belongs_to :user
-=======
+
   belongs_to :user
   # 浮動小数点数で格納されているので小数点以下を切り捨てる
   # def redis_page_view
@@ -26,5 +24,5 @@ class Article < ApplicationRecord
   #       ids.map { |id| find(id) }
   #     end
   #   end
->>>>>>> ranking
+
 end
