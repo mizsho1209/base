@@ -1,7 +1,10 @@
 class ArticlesController < ApplicationController
 
+  # require 'date'
+
   def index
-    @articles = Article.all
+    @articles = Article.order("updated_at DESC").all
+
     # .order(created_at: 'desc')
     get_ranking
   end
@@ -10,16 +13,19 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     REDIS.zincrby "ranking", 1, "#{@article.id}"
     get_ranking
+    @article.updated_at = Time.now.to_s(:db)
+    @article.save
   end
 
   def new
      @article = Article.new
+     @article.updated_at = Time.now.to_s(:db)
+     @article.save
   end
 
   def edit
     @article = Article.find(params[:id])
   end
-
 
   def create
     @article = Article.new(article_create_params)

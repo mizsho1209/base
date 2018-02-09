@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180111151950) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "visited", default: 0
+    t.datetime "visited_at"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
